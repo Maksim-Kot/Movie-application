@@ -5,18 +5,22 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"net/http"
+	"net"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 
+	"movieexample.com/gen"
 	"movieexample.com/movie/internal/controller/movie"
 	metadatagateway "movieexample.com/movie/internal/gateway/metadata/http"
 	ratinggateway "movieexample.com/movie/internal/gateway/rating/http"
-	httphandler "movieexample.com/movie/internal/handler/http"
+	grpchandler "movieexample.com/movie/internal/handler/grpc"
 	"movieexample.com/pkg/discovery"
 	"movieexample.com/pkg/discovery/consul"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 const serviceName = "movie"
@@ -60,15 +64,23 @@ func main() {
 
 	metadatagateway := metadatagateway.New(registry)
 	ratinggateway := ratinggateway.New(registry)
-	svc := movie.New(ratinggateway, metadatagateway)
-	h := httphandler.New(svc)
-	http.Handle("/movie", http.HandlerFunc(h.GetMovieDetails))
+	ctrl := movie.New(ratinggateway, metadatagateway)
+	h := grpchandler.New(ctrl)
+	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", port))
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
+	srv := grpc.NewServer()
+	reflection.Register(srv)
+	gen.RegisterMovieServiceServer(srv, h)
 	go func() {
-		if err := http.ListenAndServe(fmt.Sprintf(":%d", port), nil); err != nil {
-			panic(err)
+		if err := srv.Serve(lis); err != nil {
+			log.Fatalf("failed to serve: %v", err)
 		}
 	}()
 
 	<-signalChan
 	log.Println("Received shutdown signal, stopping service...")
+	srv.GracefulStop()
+	log.Println("gRPC server stopped")
 }
