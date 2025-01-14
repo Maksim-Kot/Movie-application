@@ -5,17 +5,21 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"net/http"
+	"net"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 
+	"movieexample.com/gen"
 	"movieexample.com/metadata/internal/controller/metadata"
-	httphandler "movieexample.com/metadata/internal/handler/http"
+	grpchandler "movieexample.com/metadata/internal/handler/grpc"
 	"movieexample.com/metadata/internal/repository/memory"
 	"movieexample.com/pkg/discovery"
 	"movieexample.com/pkg/discovery/consul"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 const serviceName = "metadata"
@@ -58,15 +62,23 @@ func main() {
 	}()
 
 	repo := memory.New()
-	svc := metadata.New(repo)
-	h := httphandler.New(svc)
-	http.Handle("/metadata", http.HandlerFunc(h.GetMetadata))
+	ctrl := metadata.New(repo)
+	h := grpchandler.New(ctrl)
+	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", port))
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
+	srv := grpc.NewServer()
+	reflection.Register(srv)
+	gen.RegisterMetadataServiceServer(srv, h)
 	go func() {
-		if err := http.ListenAndServe(fmt.Sprintf(":%d", port), nil); err != nil {
-			panic(err)
+		if err := srv.Serve(lis); err != nil {
+			log.Fatalf("failed to serve: %v", err)
 		}
 	}()
 
 	<-signalChan
 	log.Println("Received shutdown signal, stopping service...")
+	srv.GracefulStop()
+	log.Println("gRPC server stopped")
 }
