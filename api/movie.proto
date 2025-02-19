@@ -36,6 +36,7 @@ message PutMetadataResponse {
 service RatingService {
     rpc GetAggregatedRating(GetAggregatedRatingRequest) returns (GetAggregatedRatingResponse);
     rpc PutRating(PutRatingRequest) returns (PutRatingResponse);
+    rpc IngestRating(IngestRatingRequest) returns (IngestRatingResponse);
 }
 
 message GetAggregatedRatingRequest {
@@ -55,6 +56,12 @@ message PutRatingRequest {
 }
 
 message PutRatingResponse {
+}
+
+message IngestRatingRequest {
+}
+
+message IngestRatingResponse {
 }
 
 service MovieService {

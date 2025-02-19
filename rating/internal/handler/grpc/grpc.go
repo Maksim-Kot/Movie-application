@@ -47,3 +47,10 @@ func (h *Handler) PutRating(ctx context.Context, req *gen.PutRatingRequest) (*ge
 	}
 	return &gen.PutRatingResponse{}, nil
 }
+
+func (h *Handler) IngestRating(ctx context.Context, req *gen.IngestRatingRequest) (*gen.IngestRatingResponse, error) {
+	if err := h.ctrl.StartIngestion(ctx); err != nil {
+		return nil, err
+	}
+	return &gen.IngestRatingResponse{}, nil
+}

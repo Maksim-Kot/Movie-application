@@ -161,6 +161,7 @@ var MetadataService_ServiceDesc = grpc.ServiceDesc{
 const (
 	RatingService_GetAggregatedRating_FullMethodName = "/RatingService/GetAggregatedRating"
 	RatingService_PutRating_FullMethodName           = "/RatingService/PutRating"
+	RatingService_IngestRating_FullMethodName        = "/RatingService/IngestRating"
 )
 
 // RatingServiceClient is the client API for RatingService service.
@@ -169,6 +170,7 @@ const (
 type RatingServiceClient interface {
 	GetAggregatedRating(ctx context.Context, in *GetAggregatedRatingRequest, opts ...grpc.CallOption) (*GetAggregatedRatingResponse, error)
 	PutRating(ctx context.Context, in *PutRatingRequest, opts ...grpc.CallOption) (*PutRatingResponse, error)
+	IngestRating(ctx context.Context, in *IngestRatingRequest, opts ...grpc.CallOption) (*IngestRatingResponse, error)
 }
 
 type ratingServiceClient struct {
@@ -199,12 +201,23 @@ func (c *ratingServiceClient) PutRating(ctx context.Context, in *PutRatingReques
 	return out, nil
 }
 
+func (c *ratingServiceClient) IngestRating(ctx context.Context, in *IngestRatingRequest, opts ...grpc.CallOption) (*IngestRatingResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(IngestRatingResponse)
+	err := c.cc.Invoke(ctx, RatingService_IngestRating_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // RatingServiceServer is the server API for RatingService service.
 // All implementations must embed UnimplementedRatingServiceServer
 // for forward compatibility.
 type RatingServiceServer interface {
 	GetAggregatedRating(context.Context, *GetAggregatedRatingRequest) (*GetAggregatedRatingResponse, error)
 	PutRating(context.Context, *PutRatingRequest) (*PutRatingResponse, error)
+	IngestRating(context.Context, *IngestRatingRequest) (*IngestRatingResponse, error)
 	mustEmbedUnimplementedRatingServiceServer()
 }
 
@@ -220,6 +233,9 @@ func (UnimplementedRatingServiceServer) GetAggregatedRating(context.Context, *Ge
 }
 func (UnimplementedRatingServiceServer) PutRating(context.Context, *PutRatingRequest) (*PutRatingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PutRating not implemented")
+}
+func (UnimplementedRatingServiceServer) IngestRating(context.Context, *IngestRatingRequest) (*IngestRatingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IngestRating not implemented")
 }
 func (UnimplementedRatingServiceServer) mustEmbedUnimplementedRatingServiceServer() {}
 func (UnimplementedRatingServiceServer) testEmbeddedByValue()                       {}
@@ -278,6 +294,24 @@ func _RatingService_PutRating_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _RatingService_IngestRating_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IngestRatingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RatingServiceServer).IngestRating(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: RatingService_IngestRating_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RatingServiceServer).IngestRating(ctx, req.(*IngestRatingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // RatingService_ServiceDesc is the grpc.ServiceDesc for RatingService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -292,6 +326,10 @@ var RatingService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PutRating",
 			Handler:    _RatingService_PutRating_Handler,
+		},
+		{
+			MethodName: "IngestRating",
+			Handler:    _RatingService_IngestRating_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
