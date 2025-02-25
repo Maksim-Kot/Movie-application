@@ -1,2 +1,9 @@
 ### BENCHMARKS ###
 /cmd/
+
+### BUILDS ###
+bin/
+Makefile
+
+### CONFIGURATIONS ###
+configs/
