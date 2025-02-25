@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"flag"
 	"fmt"
 	"log"
 	"net"
@@ -11,10 +10,11 @@ import (
 	"syscall"
 	"time"
 
+	"gopkg.in/yaml.v3"
 	"movieexample.com/gen"
 	"movieexample.com/metadata/internal/controller/metadata"
 	grpchandler "movieexample.com/metadata/internal/handler/grpc"
-	"movieexample.com/metadata/internal/repository/memory"
+	"movieexample.com/metadata/internal/repository/mysql"
 	"movieexample.com/pkg/discovery"
 	"movieexample.com/pkg/discovery/consul"
 
@@ -22,13 +22,19 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
-const serviceName = "metadata"
-
 func main() {
-	var port int
-	flag.IntVar(&port, "port", 8081, "API handler port")
-	flag.Parse()
+	f, err := os.Open("configs/base.yaml")
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
 
+	var cfg config
+	if err := yaml.NewDecoder(f).Decode(&cfg); err != nil {
+		panic(err)
+	}
+	port := cfg.API.Port
+	serviceName := cfg.API.Name
 	log.Printf("Starting the movie metadata service on port: %d", port)
 
 	signalChan := make(chan os.Signal, 1)
@@ -61,7 +67,11 @@ func main() {
 		}
 	}()
 
-	repo := memory.New()
+	credentials := cfg.MySQL.Database
+	repo, err := mysql.New(credentials)
+	if err != nil {
+		panic(err)
+	}
 	ctrl := metadata.New(repo)
 	h := grpchandler.New(ctrl)
 	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", port))

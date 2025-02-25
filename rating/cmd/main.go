@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"flag"
 	"fmt"
 	"log"
 	"net"
@@ -11,25 +10,31 @@ import (
 	"syscall"
 	"time"
 
+	"gopkg.in/yaml.v3"
 	"movieexample.com/gen"
 	"movieexample.com/pkg/discovery"
 	"movieexample.com/pkg/discovery/consul"
 	"movieexample.com/rating/internal/controller/rating"
 	grpchandler "movieexample.com/rating/internal/handler/grpc"
-	"movieexample.com/rating/internal/ingester/kafka"
-	"movieexample.com/rating/internal/repository/memory"
+	"movieexample.com/rating/internal/repository/mysql"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
 
-const serviceName = "rating"
-
 func main() {
-	var port int
-	flag.IntVar(&port, "port", 8082, "API handler port")
-	flag.Parse()
+	f, err := os.Open("configs/base.yaml")
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
 
+	var cfg config
+	if err := yaml.NewDecoder(f).Decode(&cfg); err != nil {
+		panic(err)
+	}
+	port := cfg.API.Port
+	serviceName := cfg.API.Name
 	log.Printf("Starting the rating service on port: %d", port)
 
 	signalChan := make(chan os.Signal, 1)
@@ -62,12 +67,20 @@ func main() {
 		}
 	}()
 
-	repo := memory.New()
-	ingester, err := kafka.NewIngester([]string{"localhost:9092"}, "ratings")
+	credentials := cfg.MySQL.Database
+	repo, err := mysql.New(credentials)
+	if err != nil {
+		panic(err)
+	}
+
+	// Temporarily removed to make testing easier
+	/*topic := cfg.Kafka.Topic
+	ingester, err := kafka.NewIngester([]string{"localhost:9092"}, topic)
 	if err != nil {
 		log.Fatalf("failed to initialize ingester: %v", err)
-	}
-	ctrl := rating.New(repo, ingester)
+	}*/
+
+	ctrl := rating.New(repo, nil)
 	h := grpchandler.New(ctrl)
 	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", port))
 	if err != nil {
