@@ -8,9 +8,9 @@ import (
 	"math/rand"
 	"net/http"
 
-	"movieexample.com/movie/internal/gateway"
-	"movieexample.com/pkg/discovery"
-	"movieexample.com/rating/pkg/model"
+	"github.com/Maksim-Kot/Movie-application/movie/internal/gateway"
+	"github.com/Maksim-Kot/Movie-application/pkg/discovery"
+	"github.com/Maksim-Kot/Movie-application/rating/pkg/model"
 )
 
 // Gateway defines a movie metadata HTTP gateway.
@@ -18,14 +18,12 @@ type Gateway struct {
 	registry discovery.Registry
 }
 
-// New creates a new HTTP gateway for a movie metadata
-// service.
+// New creates a new HTTP gateway for a movie metadata service.
 func New(registry discovery.Registry) *Gateway {
 	return &Gateway{registry}
 }
 
-// GetAggregatedRating returns the aggregated rating for a
-// record or ErrNotFound if there are no ratings for it.
+// GetAggregatedRating returns the aggregated rating for a record or ErrNotFound if there are no ratings for it.
 func (g *Gateway) GetAggregatedRating(ctx context.Context,
 	recordID model.RecordID, recordType model.RecordType) (float64, error) {
 	addrs, err := g.registry.ServiceAddresses(ctx, "rating")

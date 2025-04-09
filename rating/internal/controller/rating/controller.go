@@ -4,19 +4,16 @@ import (
 	"context"
 	"errors"
 
-	"movieexample.com/rating/internal/repository"
-	"movieexample.com/rating/pkg/model"
+	"github.com/Maksim-Kot/Movie-application/rating/internal/repository"
+	"github.com/Maksim-Kot/Movie-application/rating/pkg/model"
 )
 
-// ErrNotFound is returned when no ratings are found for a
-// record.
+// ErrNotFound is returned when no ratings are found for a record.
 var ErrNotFound = errors.New("ratings not found for a record")
 
 type ratingRepository interface {
-	Get(ctx context.Context, recordID model.RecordID,
-		recordType model.RecordType) ([]model.Rating, error)
-	Put(ctx context.Context, recordID model.RecordID,
-		recordType model.RecordType, rating *model.Rating) error
+	Get(ctx context.Context, recordID model.RecordID, recordType model.RecordType) ([]model.Rating, error)
+	Put(ctx context.Context, recordID model.RecordID, recordType model.RecordType, rating *model.Rating) error
 }
 
 type ratingIngester interface {

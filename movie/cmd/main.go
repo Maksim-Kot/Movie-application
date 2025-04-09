@@ -10,17 +10,17 @@ import (
 	"syscall"
 	"time"
 
-	"gopkg.in/yaml.v3"
-	"movieexample.com/gen"
-	"movieexample.com/movie/internal/controller/movie"
-	metadatagateway "movieexample.com/movie/internal/gateway/metadata/http"
-	ratinggateway "movieexample.com/movie/internal/gateway/rating/http"
-	grpchandler "movieexample.com/movie/internal/handler/grpc"
-	"movieexample.com/pkg/discovery"
-	"movieexample.com/pkg/discovery/consul"
+	"github.com/Maksim-Kot/Movie-application/gen"
+	"github.com/Maksim-Kot/Movie-application/movie/internal/controller/movie"
+	metadatagateway "github.com/Maksim-Kot/Movie-application/movie/internal/gateway/metadata/http"
+	ratinggateway "github.com/Maksim-Kot/Movie-application/movie/internal/gateway/rating/http"
+	grpchandler "github.com/Maksim-Kot/Movie-application/movie/internal/handler/grpc"
+	"github.com/Maksim-Kot/Movie-application/pkg/discovery"
+	"github.com/Maksim-Kot/Movie-application/pkg/discovery/consul"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
+	"gopkg.in/yaml.v3"
 )
 
 func main() {

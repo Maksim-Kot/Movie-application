@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"movieexample.com/pkg/discovery"
+	"github.com/Maksim-Kot/Movie-application/pkg/discovery"
 
 	consul "github.com/hashicorp/consul/api"
 )

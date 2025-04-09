@@ -4,8 +4,8 @@ import (
 	"context"
 	"sync"
 
-	"movieexample.com/metadata/internal/repository"
-	"movieexample.com/metadata/pkg/model"
+	"github.com/Maksim-Kot/Movie-application/metadata/internal/repository"
+	"github.com/Maksim-Kot/Movie-application/metadata/pkg/model"
 )
 
 // Repository defines a memory movie metadata repository.

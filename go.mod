@@ -1,4 +1,4 @@
-module movieexample.com
+module github.com/Maksim-Kot/Movie-application
 
 go 1.22.5
 

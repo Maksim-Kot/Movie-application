@@ -1,9 +1,8 @@
 package model
 
-import "movieexample.com/gen"
+import "github.com/Maksim-Kot/Movie-application/gen"
 
-// MetadataToProto converts a Metadata struct into a
-// generated proto counterpart.
+// MetadataToProto converts a Metadata struct into a generated proto counterpart.
 func MetadataToProto(m *Metadata) *gen.Metadata {
 	return &gen.Metadata{
 		Id:          m.ID,
@@ -13,8 +12,7 @@ func MetadataToProto(m *Metadata) *gen.Metadata {
 	}
 }
 
-// MetadataFromProto converts a generated proto counterpart
-// into a Metadata struct.
+// MetadataFromProto converts a generated proto counterpart into a Metadata struct.
 func MetadataFromProto(m *gen.Metadata) *Metadata {
 	return &Metadata{
 		ID:          m.Id,

@@ -5,11 +5,11 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
-	gen "movieexample.com/gen/mock/metadata/repository"
-	"movieexample.com/metadata/internal/repository"
-	"movieexample.com/metadata/pkg/model"
+	gen "github.com/Maksim-Kot/Movie-application/gen/mock/metadata/repository"
+	"github.com/Maksim-Kot/Movie-application/metadata/internal/repository"
+	"github.com/Maksim-Kot/Movie-application/metadata/pkg/model"
 
+	"github.com/stretchr/testify/assert"
 	"go.uber.org/mock/gomock"
 )
 
@@ -50,6 +50,7 @@ func TestController(t *testing.T) {
 			id := "id"
 			repoMock.EXPECT().Get(ctx, id).Return(tt.expRepoRes, tt.expRepoErr)
 			res, err := c.Get(ctx, id)
+
 			assert.Equal(t, tt.wantRes, res, tt.name)
 			assert.Equal(t, tt.wantErr, err, tt.name)
 		})

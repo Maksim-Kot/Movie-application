@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"movieexample.com/pkg/discovery"
+	"github.com/Maksim-Kot/Movie-application/pkg/discovery"
 )
 
 // Registry defines an in-memory service registry.

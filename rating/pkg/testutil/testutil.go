@@ -1,10 +1,10 @@
 package testutil
 
 import (
-	"movieexample.com/gen"
-	"movieexample.com/rating/internal/controller/rating"
-	grpchandler "movieexample.com/rating/internal/handler/grpc"
-	"movieexample.com/rating/internal/repository/memory"
+	"github.com/Maksim-Kot/Movie-application/gen"
+	"github.com/Maksim-Kot/Movie-application/rating/internal/controller/rating"
+	grpchandler "github.com/Maksim-Kot/Movie-application/rating/internal/handler/grpc"
+	"github.com/Maksim-Kot/Movie-application/rating/internal/repository/memory"
 )
 
 // NewTestRatingGRPCServer creates a new rating gRPC server to be used in tests.

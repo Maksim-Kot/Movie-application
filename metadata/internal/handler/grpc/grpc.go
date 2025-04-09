@@ -4,9 +4,9 @@ import (
 	"context"
 	"errors"
 
-	"movieexample.com/gen"
-	"movieexample.com/metadata/internal/controller/metadata"
-	"movieexample.com/metadata/pkg/model"
+	"github.com/Maksim-Kot/Movie-application/gen"
+	"github.com/Maksim-Kot/Movie-application/metadata/internal/controller/metadata"
+	"github.com/Maksim-Kot/Movie-application/metadata/pkg/model"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -47,5 +47,6 @@ func (h *Handler) PutMetadata(ctx context.Context, req *gen.PutMetadataRequest) 
 	if err := h.ctrl.Put(ctx, model.MetadataFromProto(req.Metadata)); err != nil {
 		return nil, status.Errorf(codes.Internal, err.Error())
 	}
+
 	return &gen.PutMetadataResponse{}, nil
 }

@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	"movieexample.com/metadata/internal/repository"
-	"movieexample.com/metadata/pkg/model"
+	"github.com/Maksim-Kot/Movie-application/metadata/internal/repository"
+	"github.com/Maksim-Kot/Movie-application/metadata/pkg/model"
 )
 
 // ErrNotFound is returned when a requested record is not found.

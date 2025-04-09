@@ -5,12 +5,12 @@ import (
 	"log"
 	"net"
 
-	"movieexample.com/gen"
-	metadatatest "movieexample.com/metadata/pkg/testutil"
-	movietest "movieexample.com/movie/pkg/testutil"
-	"movieexample.com/pkg/discovery"
-	"movieexample.com/pkg/discovery/memory"
-	ratingtest "movieexample.com/rating/pkg/testutil"
+	"github.com/Maksim-Kot/Movie-application/gen"
+	metadatatest "github.com/Maksim-Kot/Movie-application/metadata/pkg/testutil"
+	movietest "github.com/Maksim-Kot/Movie-application/movie/pkg/testutil"
+	"github.com/Maksim-Kot/Movie-application/pkg/discovery"
+	"github.com/Maksim-Kot/Movie-application/pkg/discovery/memory"
+	ratingtest "github.com/Maksim-Kot/Movie-application/rating/pkg/testutil"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"

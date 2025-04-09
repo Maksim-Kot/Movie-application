@@ -5,8 +5,8 @@ import (
 	"database/sql"
 	"errors"
 
-	"movieexample.com/metadata/internal/repository"
-	"movieexample.com/metadata/pkg/model"
+	"github.com/Maksim-Kot/Movie-application/metadata/internal/repository"
+	"github.com/Maksim-Kot/Movie-application/metadata/pkg/model"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -47,7 +47,7 @@ func (r *Repository) Get(ctx context.Context, id string) (*model.Metadata, error
 
 // Put adds movie metadata for a given movie id.
 func (r *Repository) Put(ctx context.Context, id string, metadata *model.Metadata) error {
-	_, err := r.db.ExecContext(ctx, "INSERT INTO movies (id, title, description, director) VALUES (?, ?, ?, ?)",
-		id, metadata.Title, metadata.Description, metadata.Director)
+	args := []any{id, metadata.Title, metadata.Description, metadata.Director}
+	_, err := r.db.ExecContext(ctx, "INSERT INTO movies (id, title, description, director) VALUES (?, ?, ?, ?)", args)
 	return err
 }

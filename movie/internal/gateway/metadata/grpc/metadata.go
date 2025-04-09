@@ -3,10 +3,10 @@ package grpc
 import (
 	"context"
 
-	"movieexample.com/gen"
-	"movieexample.com/internal/grpcutil"
-	"movieexample.com/metadata/pkg/model"
-	"movieexample.com/pkg/discovery"
+	"github.com/Maksim-Kot/Movie-application/gen"
+	"github.com/Maksim-Kot/Movie-application/internal/grpcutil"
+	"github.com/Maksim-Kot/Movie-application/metadata/pkg/model"
+	"github.com/Maksim-Kot/Movie-application/pkg/discovery"
 )
 
 // Gateway defines a movie metadata gRPC gateway.

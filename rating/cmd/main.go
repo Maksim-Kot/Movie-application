@@ -10,16 +10,16 @@ import (
 	"syscall"
 	"time"
 
-	"gopkg.in/yaml.v3"
-	"movieexample.com/gen"
-	"movieexample.com/pkg/discovery"
-	"movieexample.com/pkg/discovery/consul"
-	"movieexample.com/rating/internal/controller/rating"
-	grpchandler "movieexample.com/rating/internal/handler/grpc"
-	"movieexample.com/rating/internal/repository/mysql"
+	"github.com/Maksim-Kot/Movie-application/gen"
+	"github.com/Maksim-Kot/Movie-application/pkg/discovery"
+	"github.com/Maksim-Kot/Movie-application/pkg/discovery/consul"
+	"github.com/Maksim-Kot/Movie-application/rating/internal/controller/rating"
+	grpchandler "github.com/Maksim-Kot/Movie-application/rating/internal/handler/grpc"
+	"github.com/Maksim-Kot/Movie-application/rating/internal/repository/mysql"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
+	"gopkg.in/yaml.v3"
 )
 
 func main() {

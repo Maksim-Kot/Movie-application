@@ -4,9 +4,9 @@ import (
 	"context"
 	"errors"
 
-	"movieexample.com/gen"
-	"movieexample.com/rating/internal/controller/rating"
-	"movieexample.com/rating/pkg/model"
+	"github.com/Maksim-Kot/Movie-application/gen"
+	"github.com/Maksim-Kot/Movie-application/rating/internal/controller/rating"
+	"github.com/Maksim-Kot/Movie-application/rating/pkg/model"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

@@ -8,9 +8,9 @@ import (
 	"math/rand"
 	"net/http"
 
-	"movieexample.com/metadata/pkg/model"
-	"movieexample.com/movie/internal/gateway"
-	"movieexample.com/pkg/discovery"
+	"github.com/Maksim-Kot/Movie-application/metadata/pkg/model"
+	"github.com/Maksim-Kot/Movie-application/movie/internal/gateway"
+	"github.com/Maksim-Kot/Movie-application/pkg/discovery"
 )
 
 // Gateway defines a movie metadata HTTP gateway.
@@ -18,8 +18,7 @@ type Gateway struct {
 	registry discovery.Registry
 }
 
-// New creates a new HTTP gateway for a movie metadata
-// service.
+// New creates a new HTTP gateway for a movie metadata service.
 func New(registry discovery.Registry) *Gateway {
 	return &Gateway{registry}
 }

@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	"movieexample.com/movie/internal/controller/movie"
+	"github.com/Maksim-Kot/Movie-application/movie/internal/controller/movie"
 )
 
 // Handler defines a movie handler.

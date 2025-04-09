@@ -14,7 +14,7 @@ import (
         reflect "reflect"
 
         gomock "go.uber.org/mock/gomock"
-        model "movieexample.com/metadata/pkg/model"
+        model "github.com/Maksim-Kot/Movie-application/metadata/pkg/model"
 )
 
 // MockmetadataRepository is a mock of metadataRepository interface.

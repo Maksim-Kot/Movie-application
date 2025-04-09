@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"movieexample.com/rating/pkg/model"
+	"github.com/Maksim-Kot/Movie-application/rating/pkg/model"
 
 	"github.com/IBM/sarama"
 )

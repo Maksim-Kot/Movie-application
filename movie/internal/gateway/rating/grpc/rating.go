@@ -3,10 +3,10 @@ package grpc
 import (
 	"context"
 
-	"movieexample.com/gen"
-	"movieexample.com/internal/grpcutil"
-	"movieexample.com/pkg/discovery"
-	"movieexample.com/rating/pkg/model"
+	"github.com/Maksim-Kot/Movie-application/gen"
+	"github.com/Maksim-Kot/Movie-application/internal/grpcutil"
+	"github.com/Maksim-Kot/Movie-application/pkg/discovery"
+	"github.com/Maksim-Kot/Movie-application/rating/pkg/model"
 )
 
 // Gateway defines an gRPC gateway for a rating service.

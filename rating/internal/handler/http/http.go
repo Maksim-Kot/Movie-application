@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"movieexample.com/rating/internal/controller/rating"
-	"movieexample.com/rating/pkg/model"
+	"github.com/Maksim-Kot/Movie-application/rating/internal/controller/rating"
+	"github.com/Maksim-Kot/Movie-application/rating/pkg/model"
 )
 
 // Handler defines a rating service controller.

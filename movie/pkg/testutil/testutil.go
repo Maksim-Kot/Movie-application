@@ -1,12 +1,12 @@
 package testutil
 
 import (
-	"movieexample.com/gen"
-	"movieexample.com/movie/internal/controller/movie"
-	metadatagateway "movieexample.com/movie/internal/gateway/metadata/grpc"
-	ratinggateway "movieexample.com/movie/internal/gateway/rating/grpc"
-	grpchandler "movieexample.com/movie/internal/handler/grpc"
-	"movieexample.com/pkg/discovery"
+	"github.com/Maksim-Kot/Movie-application/gen"
+	"github.com/Maksim-Kot/Movie-application/movie/internal/controller/movie"
+	metadatagateway "github.com/Maksim-Kot/Movie-application/movie/internal/gateway/metadata/grpc"
+	ratinggateway "github.com/Maksim-Kot/Movie-application/movie/internal/gateway/rating/grpc"
+	grpchandler "github.com/Maksim-Kot/Movie-application/movie/internal/handler/grpc"
+	"github.com/Maksim-Kot/Movie-application/pkg/discovery"
 )
 
 // NewTestMovieGRPCServer creates a new movie gRPC server to be used in tests.

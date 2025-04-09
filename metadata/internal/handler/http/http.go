@@ -6,8 +6,8 @@ import (
 	"log"
 	"net/http"
 
-	"movieexample.com/metadata/internal/controller/metadata"
-	"movieexample.com/metadata/internal/repository"
+	"github.com/Maksim-Kot/Movie-application/metadata/internal/controller/metadata"
+	"github.com/Maksim-Kot/Movie-application/metadata/internal/repository"
 )
 
 // Handler defines a movie metadata HTTP handler.

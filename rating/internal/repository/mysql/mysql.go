@@ -4,8 +4,8 @@ import (
 	"context"
 	"database/sql"
 
-	"movieexample.com/rating/internal/repository"
-	"movieexample.com/rating/pkg/model"
+	"github.com/Maksim-Kot/Movie-application/rating/internal/repository"
+	"github.com/Maksim-Kot/Movie-application/rating/pkg/model"
 
 	_ "github.com/go-sql-driver/mysql"
 )
